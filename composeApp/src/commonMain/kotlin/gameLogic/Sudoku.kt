@@ -15,6 +15,11 @@ data class Sudoku (
         Cell(SudokuValue.EMPTY)
     }
 ) {
+    init {
+        // generate a random sudoku puzzle
+        prepareNewGameGrid()
+    }
+
     /**
      * @return the list of all cells representing the grid of the sudoku game
      */
@@ -74,6 +79,7 @@ data class Sudoku (
                     2 -> newCell.value = SudokuValue.TWO
                     3 -> newCell.value = SudokuValue.THREE
                     4 -> newCell.value = SudokuValue.FOUR
+                    else -> newCell.value = SudokuValue.EMPTY
                 }
                 newList.add(newCell)
             } else {
@@ -93,5 +99,35 @@ data class Sudoku (
         val row = idx/4
         val col = idx%4
         return Pair(row, col)
+    }
+
+    fun prepareNewGameGrid(){
+        /*
+        * ==> PART 1: Generate a random valid filled board
+        * 1. while board is not filled
+        * 2. iterate board
+        * 3. choose random number 1-4
+        * 4. check if valid, if yes put in cell, if not choose another random number between the remaining 3
+        * 5. if reached cell where no valid number can be put, go back to previous cell and choose another number
+        * 6. when board filled, return board
+        *
+        * ==> PART 2 (sudoku with unique answers only): randomly remove some cells
+        * 1. start with filled board
+        * 2. randomly shuffle a list of 16 numbers (all cell positions of the 4x4 sudoku)
+        * 3. while board not empty
+        * 4. remove number at a position following the randomly shuffled positions
+        * 5. check if board has unique solution (by using a backtracking sudoku solver)
+        * 6. if yes go to next position to remove, if no, undo this remove then go to next position to remove
+        * 7. once iterated through all 16 positions, return board
+        *
+        * ==> OR (sudoku without guarantee that only has one unique answer): Randomly remove any 11 positions
+        */
+    }
+
+    fun validateGrid(): Boolean {
+        return false
+        /*
+        * For each row, column, sub-grid: check if contains repeating numbers 1-4
+        * */
     }
 }

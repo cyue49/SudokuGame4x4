@@ -32,6 +32,8 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
+            val lifecycle_version = "2.8.0"
+            implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
