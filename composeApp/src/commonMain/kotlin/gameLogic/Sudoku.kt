@@ -7,13 +7,14 @@ enum class SudokuValue(val num: Int?) {
     THREE(3),
     FOUR(4)
 }
+
 data class Cell (var value: SudokuValue)
 
-class Sudoku {
-    private var sudokuGrid = MutableList<Cell>(16) {
+data class Sudoku (
+    private val sudokuGrid: List<Cell> = List<Cell>(16) {
         Cell(SudokuValue.EMPTY)
     }
-
+) {
     /**
      * @return the list of all cells representing the grid of the sudoku game
      */
@@ -56,7 +57,7 @@ class Sudoku {
     }
 
     /**
-     * Given a row, a colum, and a new value, update the cell at that position with the new value then return the updated list of cells
+     * Given a row, a colum, and a new value, return the list of cells with the value at row and colum updated to the new value
      * @param row the number for the row of the sudoku grid
      * @param col the number for the column of the sudoku grid
      * @param newVal the new value for the cell
@@ -79,7 +80,6 @@ class Sudoku {
                 newList.add(Cell(sudokuGrid[i].value))
             }
         }
-        sudokuGrid = newList
         return newList
     }
 
