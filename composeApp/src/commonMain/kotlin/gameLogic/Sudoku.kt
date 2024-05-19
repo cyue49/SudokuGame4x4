@@ -52,6 +52,33 @@ data class Sudoku (
     }
 
     /**
+     * @param n the number n for the n-th sub-grid of the sudoku grid
+     * @return a list of the cells of the n-th sub-grid
+     */
+    fun getSubGrid(n: Int): List<Cell>{
+        val li = mutableListOf<Cell>()
+        when(n) {
+            0 -> {
+                li.addAll(getRow(0).slice(0..1))
+                li.addAll(getRow(1).slice(0..1))
+            }
+            1 -> {
+                li.addAll(getRow(0).slice(2..3))
+                li.addAll(getRow(1).slice(2..3))
+            }
+            2 -> {
+                li.addAll(getRow(2).slice(0..1))
+                li.addAll(getRow(3).slice(0..1))
+            }
+            3 -> {
+                li.addAll(getRow(2).slice(2..3))
+                li.addAll(getRow(3).slice(2..3))
+            }
+        }
+        return li
+    }
+
+    /**
      * Given a row and a colum, returns the cell at that position.
      * @param row the number for the row of the sudoku grid
      * @param col the number for the column of the sudoku grid
@@ -125,9 +152,16 @@ data class Sudoku (
     }
 
     fun validateGrid(): Boolean {
-        return false
-        /*
-        * For each row, column, sub-grid: check if contains repeating numbers 1-4
-        * */
+        var validRows = true
+        var validCols = true
+        var validSubGrid = true
+        for (i in 0..3){
+            val row = getRow(i)
+            val col = getCol(i)
+            val subGrid = getSubGrid(i)
+
+            // todo: validate row, col, and subgrid, if found invalid, return false
+        }
+        return true
     }
 }
