@@ -191,12 +191,18 @@ data class Sudoku (
     }
 
     // Helper function: given a list of cells representing a section (a row, a column, or a subgrid) in the sudoku, validate whether it contains all four numbers 1-4
-    private fun validateSection(line: List<Cell>): Boolean{
+    private fun validateSection(line: List<Cell>, ignoreEmpty: Boolean = false): Boolean{
         var valid = true
         val allNums: MutableList<Int> = MutableList<Int>(4) {0}
+        var emptyCount = 0
+
         for (cell in line){
             when (cell.value) {
                 SudokuValue.EMPTY -> {
+                    if (ignoreEmpty) {
+                        emptyCount++
+                        continue
+                    }
                     valid = false
                     break
                 }
@@ -206,7 +212,18 @@ data class Sudoku (
                 SudokuValue.FOUR -> allNums[3] = 1
             }
         }
-        if (allNums.contains(0)) valid = false
+
+        if (!ignoreEmpty) {
+            if (allNums.contains(0)) valid = false
+        } else {
+            var zeroCount = 0
+            for (num in allNums){
+                if (num == 0) zeroCount ++
+            }
+
+            if (zeroCount != emptyCount) valid = false
+        }
+
         return valid
     }
 }
