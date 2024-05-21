@@ -175,14 +175,14 @@ data class Sudoku (
      * Validates whether the current sudoku grid is valid. A valid board is fully filled and contains the numbers 1-4 on all rows, columns, and sub-grids exactly one time
      * @return Returns true if the grid is valid, and returns false otherwise
      */
-    fun validateGrid(): Boolean {
+    fun validateGrid(ignoreEmpty: Boolean = false): Boolean {
         var valid = true
         for (i in 0..3){
             val row = getRow(i)
             val col = getCol(i)
             val subGrid = getSubGrid(i)
 
-            if (!validateSection(row) || !validateSection(col) || !validateSection(subGrid)) {
+            if (!validateSection(row, ignoreEmpty) || !validateSection(col, ignoreEmpty) || !validateSection(subGrid, ignoreEmpty)) {
                 valid = false
                 break
             }
