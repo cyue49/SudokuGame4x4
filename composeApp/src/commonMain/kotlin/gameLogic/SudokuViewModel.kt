@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 class SudokuViewModel: ViewModel() {
     var sudoku by mutableStateOf(Sudoku())
 
-    // update the sudoku object
+    // Update the sudoku object with a new list of cells representing the grid
     private fun update(cells: List<Cell>){
         sudoku = sudoku.copy(
             sudokuGrid = cells

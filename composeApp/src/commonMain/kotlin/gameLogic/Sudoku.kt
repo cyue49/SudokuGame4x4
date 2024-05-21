@@ -11,13 +11,13 @@ enum class SudokuValue(val num: Int?) {
 data class Cell (var value: SudokuValue)
 
 data class Sudoku (
-    private val sudokuGrid: List<Cell> = List<Cell>(16) {
+    private var sudokuGrid: List<Cell> = List<Cell>(16) {
         Cell(SudokuValue.EMPTY)
     }
 ) {
     init {
-        // generate a random sudoku puzzle
-        prepareNewGameGrid()
+        // get a new random sudoku puzzle
+        getNewGameGrid()
     }
 
     /**
@@ -128,7 +128,7 @@ data class Sudoku (
         return Pair(row, col)
     }
 
-    fun prepareNewGameGrid(){
+    fun getNewGameGrid(){
         /*
         * ==> PART 1: Generate a random valid filled board
         * 1. while board is not filled
@@ -151,17 +151,62 @@ data class Sudoku (
         */
     }
 
+    // Generate a random valid completed 4x4 sudoku grid
+    private fun getRandomValidGrid() {
+        // todo
+    }
+
+    // Creates a list of cells representing a sudoku grid given a list of int representing the values of the grid
+    private fun createGrid(intList: List<Int>): List<Cell>{
+        val li = mutableListOf<Cell>()
+        for (i in intList){
+            when(i) {
+                0 -> li.add(Cell(SudokuValue.EMPTY))
+                1 -> li.add(Cell(SudokuValue.ONE))
+                2 -> li.add(Cell(SudokuValue.TWO))
+                3 -> li.add(Cell(SudokuValue.THREE))
+                4 -> li.add(Cell(SudokuValue.FOUR))
+            }
+        }
+        return li
+    }
+
+    /**
+     * Validates whether the current sudoku grid is valid. A valid board is fully filled and contains the numbers 1-4 on all rows, columns, and sub-grids exactly one time
+     * @return Returns true if the grid is valid, and returns false otherwise
+     */
     fun validateGrid(): Boolean {
-        var validRows = true
-        var validCols = true
-        var validSubGrid = true
+        var valid = true
         for (i in 0..3){
             val row = getRow(i)
             val col = getCol(i)
             val subGrid = getSubGrid(i)
 
-            // todo: validate row, col, and subgrid, if found invalid, return false
+            if (!validateSection(row) || !validateSection(col) || !validateSection(subGrid)) {
+                valid = false
+                break
+            }
         }
-        return true
+        return valid
+    }
+
+    // Helper function: given a list of cells representing a section (a row, a column, or a subgrid) in the sudoku, validate whether it contains all four numbers 1-4
+    private fun validateSection(line: List<Cell>): Boolean{
+        var valid = true
+        val allNums: MutableList<Int> = MutableList<Int>(4) {0}
+        for (cell in line){
+            when (cell.value) {
+                SudokuValue.EMPTY -> {
+                    valid = false
+                    break
+                }
+                SudokuValue.ONE -> allNums[0] = 1
+                SudokuValue.TWO -> allNums[1] = 1
+                SudokuValue.THREE -> allNums[2] = 1
+                SudokuValue.FOUR -> allNums[3] = 1
+            }
+        }
+        if (allNums.contains(0)) valid = false
+        return valid
     }
 }
