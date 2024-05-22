@@ -16,8 +16,10 @@ data class Sudoku (
     }
 ) {
     init {
-        // get a new random sudoku puzzle
-        getNewGameGrid()
+        // get a new random sudoku puzzle if new game (sudoku grid currently empty)
+        if (sudokuGridIsEmpty()) {
+            sudokuGrid = getNewGameGrid()
+        }
     }
 
     /**
@@ -79,6 +81,19 @@ data class Sudoku (
     }
 
     /**
+     * Checks if the current sudoku grid is empty
+     * @return true if the sudoku grid is empty, and false otherwise
+     */
+    private fun sudokuGridIsEmpty(): Boolean {
+        for (i in sudokuGrid.indices){
+            if (sudokuGrid[i].value != SudokuValue.EMPTY){
+                return false
+            }
+        }
+        return true
+    }
+
+    /**
      * Given a row and a colum, returns the cell at that position.
      * @param row the number for the row of the sudoku grid
      * @param col the number for the column of the sudoku grid
@@ -116,19 +131,30 @@ data class Sudoku (
         return newList
     }
 
-    // helper function: given a grid row and col, return the array index at that position
+    /**
+     * Given a grid row and col, return the list index at that position
+     * @param row the index for the row of a sudoku grid
+     * @param col the index for the column of a sudoku grid
+     * @return The list index of that row and column position
+     */
     private fun rowColToIdx(row: Int, col: Int): Int {
         return (row*4)+col
     }
 
     // helper function: given an array index representing a grid position, return the row and col at that position
+    /**
+     * Given a list index representing a sudoku grid position, return the row and column indices of that position
+     * @param idx index of a list representing a sudoku grid
+     * @return A pair of integers representing the row and column indices of the sudoku grid
+     */
     private fun idxToRowCol(idx: Int): Pair<Int, Int> {
         val row = idx/4
         val col = idx%4
         return Pair(row, col)
     }
 
-    fun getNewGameGrid(){
+    private fun getNewGameGrid(): List<Cell> {
+        val li: MutableList<Cell> = getRandomValidGrid()
         /*
         * ==> PART 1: Generate a random valid filled board
         * 1. while board is not filled
@@ -149,14 +175,31 @@ data class Sudoku (
         *
         * ==> OR (sudoku without guarantee that only has one unique answer): Randomly remove any 11 positions
         */
+
+        return li
     }
 
-    // Generate a random valid completed 4x4 sudoku grid
-    private fun getRandomValidGrid() {
-        // todo
+    /**
+     * Generate a random completed and valid 4x4 sudoku grid
+     * @return A list of cells representing a completed and valid 4x4 sudoku grid
+     */
+    private fun getRandomValidGrid(): MutableList<Cell> {
+        val li: MutableList<Cell> = MutableList<Cell>(16) { Cell(SudokuValue.EMPTY) } // list to be returned
+        //while (!validateGrid()){ // while not a complete valid grid
+            for (i in 0..15){ // for each cell
+                val value = (1..4).random() // get a random value from 1 to 4
+                li[i] = Cell(SudokuValue.entries[value])
+
+            }
+        //}
+        return li
     }
 
-    // Creates a list of cells representing a sudoku grid given a list of int representing the values of the grid
+    /**
+     * Create a list of cells representing a sudoku grid given a list of integers
+     * @param intList a list of integer values representing the values of each cells of a sudoku grid
+     * @return A list of Cell representing the sudoku grid
+     */
     private fun createGrid(intList: List<Int>): List<Cell>{
         val li = mutableListOf<Cell>()
         for (i in intList){
@@ -190,13 +233,17 @@ data class Sudoku (
         return valid
     }
 
-    // Helper function: given a list of cells representing a section (a row, a column, or a subgrid) in the sudoku, validate whether it contains all four numbers 1-4
-    private fun validateSection(line: List<Cell>, ignoreEmpty: Boolean = false): Boolean{
+    /**
+     * Validates whether a section of the sudoku grid (a row, a column, or a sub-grid) is valid, thus containing all four numbers 1,2,3, and 4 exactly once.
+     * @param cellList a list of cells representing a section of the sudoku grid (a row, a column, or a sub-grid)
+     * @return true if the section is valid, and false otherwise
+     */
+    private fun validateSection(cellList: List<Cell>, ignoreEmpty: Boolean = false): Boolean{
         var valid = true
         val allNums: MutableList<Int> = MutableList<Int>(4) {0}
         var emptyCount = 0
 
-        for (cell in line){
+        for (cell in cellList){
             when (cell.value) {
                 SudokuValue.EMPTY -> {
                     if (ignoreEmpty) {
