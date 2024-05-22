@@ -154,9 +154,12 @@ data class Sudoku (
     }
 
     private fun getNewGameGrid(): List<Cell> {
+        val randomValuesList = mutableListOf(1,2,3,4)
         val li: MutableList<Cell> = MutableList<Cell>(16) { Cell(SudokuValue.EMPTY) }
-        backtrack(li, 0)
+        backtrack(li, 0, randomValuesList.shuffled())
+
         /*
+        * TODO:
         * ==> PART 1: Generate a random valid completed board
         * ==> PART 2 randomly remove cells until a sudoku grid with solvable & unique solution
         */
@@ -164,16 +167,22 @@ data class Sudoku (
         return li
     }
 
-    // backtracking algorithm
-    fun backtrack(cellList: MutableList<Cell>, nextEmptyCell: Int): Boolean{
+    /**
+     * Backtracking algorithm to randomly fill up an empty sudoku grid with a valid completed sudoku grid
+     * @param cellList the list of cell representing the sudoku grid that is to be filled up
+     * @param nextEmptyCell the index of the next empty cell to be filled up in the list
+     * @param randomValuesList a shuffled list of values 1 to 4 following which the backtracking algorithm will attempt to fill in the values
+     * @return true if the sudoku grid is filled up successfully with a valid and complete grid, false otherwise
+     */
+    private fun backtrack(cellList: MutableList<Cell>, nextEmptyCell: Int, randomValuesList: List<Int>): Boolean{
         if (nextEmptyCell == cellList.size) { // if filled in all cells, return
             return  true
         }
 
-        for (i in 1..4){ // for each values 1 to 4
+        for (i in randomValuesList){ // for each values 1 to 4
             cellList[nextEmptyCell].value = SudokuValue.entries[i] // try a value
             if (validateGrid(cellList,true)) { // if currently valid value, recursive call with next empty cell + 1
-                return backtrack(cellList, nextEmptyCell+1)
+                return backtrack(cellList, nextEmptyCell+1, randomValuesList)
             } else { // else reset cell value back to empty
                 cellList[nextEmptyCell].value = SudokuValue.EMPTY
             }
