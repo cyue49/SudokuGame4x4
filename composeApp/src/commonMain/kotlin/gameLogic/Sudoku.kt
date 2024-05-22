@@ -1,5 +1,8 @@
 package gameLogic
 
+/**
+ * Enum class representing the five possible states of a 4x4 sudoku cell: EMPTY, ONE, TWO, THREE, or FOUR
+ */
 enum class SudokuValue(val num: Int?) {
     EMPTY(null),
     ONE(1),
@@ -8,21 +11,29 @@ enum class SudokuValue(val num: Int?) {
     FOUR(4)
 }
 
+/**
+ * Data class representing a cell on a sudoku grid
+ */
 data class Cell (var value: SudokuValue)
 
+/**
+ * Data class representing a Sudoku game
+ * @property sudokuGrid a List of Cell representing the sudoku grid
+ */
 data class Sudoku (
     private var sudokuGrid: List<Cell> = List<Cell>(16) {
         Cell(SudokuValue.EMPTY)
     }
 ) {
     init {
-        // get a new random sudoku puzzle if new game (sudoku grid currently empty)
+        // initialize sudoku game with a random grid if the sudoku grid is empty
         if (sudokuGridIsEmpty()) {
             sudokuGrid = getNewGameGrid()
         }
     }
 
     /**
+     * Get the current sudoku grid
      * @return the list of all cells representing the grid of the sudoku game
      */
     fun getGrid(): List<Cell>{
@@ -30,6 +41,7 @@ data class Sudoku (
     }
 
     /**
+     * Returns a list of cells representing a row of a sudoku grid
      * @param n the number n for the n-th row of the sudoku grid
      * @return a list of the cells of the n-th row
      */
@@ -42,6 +54,7 @@ data class Sudoku (
     }
 
     /**
+     * Returns a list of cells representing a column of a sudoku grid
      * @param n the number n for the n-th column of the sudoku grid
      * @return a list of the cells of the n-th column
      */
@@ -54,6 +67,7 @@ data class Sudoku (
     }
 
     /**
+     * Returns a list of cells representing a sub-grid of a sudoku grid
      * @param n the number n for the n-th sub-grid of the sudoku grid
      * @return a list of the cells of the n-th sub-grid
      */
@@ -141,7 +155,6 @@ data class Sudoku (
         return (row*4)+col
     }
 
-    // helper function: given an array index representing a grid position, return the row and col at that position
     /**
      * Given a list index representing a sudoku grid position, return the row and column indices of that position
      * @param idx index of a list representing a sudoku grid
