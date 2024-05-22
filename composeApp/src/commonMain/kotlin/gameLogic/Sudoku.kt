@@ -14,7 +14,10 @@ enum class SudokuValue(val num: Int?) {
 /**
  * Data class representing a cell on a sudoku grid
  */
-data class Cell (var value: SudokuValue)
+data class Cell (
+    var value: SudokuValue, // the value of the cell
+    var isInputField: Boolean = true // type of the cell, true if cell is a user input cell, false if it is a question cell with a set value
+)
 
 /**
  * Data class representing a Sudoku game
@@ -181,15 +184,23 @@ data class Sudoku (
     }
 
     /**
-     * Backtracking algorithm to randomly fill up an empty sudoku grid with a valid completed sudoku grid
-     * @param cellList the list of cell representing the sudoku grid that is to be filled up
-     * @param nextEmptyCell the index of the next empty cell to be filled up in the list
+     * Backtracking algorithm to solve a 4x4 sudoku puzzle
+     * @param cellList the list of cell representing the sudoku grid
+     * @param nextEmptyCell the index of the next cell to be solved in the list
      * @param randomValuesList a shuffled list of values 1 to 4 following which the backtracking algorithm will attempt to fill in the values
      * @return true if the sudoku grid is filled up successfully with a valid and complete grid, false otherwise
      */
     private fun backtrack(cellList: MutableList<Cell>, nextEmptyCell: Int, randomValuesList: List<Int>): Boolean{
         if (nextEmptyCell == cellList.size) { // if filled in all cells, return
             return  true
+        }
+
+        // if this cell is not an input cell go next
+        if (!cellList[nextEmptyCell].isInputField) {
+            if (backtrack(cellList, nextEmptyCell+1, randomValuesList.shuffled())){
+                return true
+            }
+            return false
         }
 
         for (i in randomValuesList){ // for each values 1 to 4
@@ -211,15 +222,15 @@ data class Sudoku (
      * @param intList a list of integer values representing the values of each cells of a sudoku grid
      * @return A list of Cell representing the sudoku grid
      */
-    private fun createGrid(intList: List<Int>): List<Cell>{
+    private fun createGrid(intList: List<Int>): MutableList<Cell>{
         val li = mutableListOf<Cell>()
         for (i in intList){
             when(i) {
                 0 -> li.add(Cell(SudokuValue.EMPTY))
-                1 -> li.add(Cell(SudokuValue.ONE))
-                2 -> li.add(Cell(SudokuValue.TWO))
-                3 -> li.add(Cell(SudokuValue.THREE))
-                4 -> li.add(Cell(SudokuValue.FOUR))
+                1 -> li.add(Cell(SudokuValue.ONE, false))
+                2 -> li.add(Cell(SudokuValue.TWO, false))
+                3 -> li.add(Cell(SudokuValue.THREE, false))
+                4 -> li.add(Cell(SudokuValue.FOUR, false))
             }
         }
         return li
