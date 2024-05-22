@@ -157,41 +157,25 @@ data class Sudoku (
         val li: MutableList<Cell> = MutableList<Cell>(16) { Cell(SudokuValue.EMPTY) }
         backtrack(li, 0)
         /*
-        * ==> PART 1: Generate a random valid filled board
-        * 1. while board is not filled
-        * 2. iterate board
-        * 3. choose random number 1-4
-        * 4. check if valid, if yes put in cell, if not choose another random number between the remaining 3
-        * 5. if reached cell where no valid number can be put, go back to previous cell and choose another number
-        * 6. when board filled, return board
-        *
-        * ==> PART 2 (sudoku with unique answers only): randomly remove some cells
-        * 1. start with filled board
-        * 2. randomly shuffle a list of 16 numbers (all cell positions of the 4x4 sudoku)
-        * 3. while board not empty
-        * 4. remove number at a position following the randomly shuffled positions
-        * 5. check if board has unique solution (by using a backtracking sudoku solver)
-        * 6. if yes go to next position to remove, if no, undo this remove then go to next position to remove
-        * 7. once iterated through all 16 positions, return board
-        *
-        * ==> OR (sudoku without guarantee that only has one unique answer): Randomly remove any 11 positions
+        * ==> PART 1: Generate a random valid completed board
+        * ==> PART 2 randomly remove cells until a sudoku grid with solvable & unique solution
         */
 
         return li
     }
 
     // backtracking algorithm
-    fun backtrack(cellList: MutableList<Cell>, firstEmpty: Int): Boolean{
-        if (firstEmpty == cellList.size) {
+    fun backtrack(cellList: MutableList<Cell>, nextEmptyCell: Int): Boolean{
+        if (nextEmptyCell == cellList.size) { // if filled in all cells, return
             return  true
         }
 
-        for (i in 1..4){
-            cellList[firstEmpty].value = SudokuValue.entries[i]
-            if (validateGrid(cellList,true)) {
-                return backtrack(cellList, firstEmpty+1)
-            } else {
-                cellList[firstEmpty].value = SudokuValue.EMPTY
+        for (i in 1..4){ // for each values 1 to 4
+            cellList[nextEmptyCell].value = SudokuValue.entries[i] // try a value
+            if (validateGrid(cellList,true)) { // if currently valid value, recursive call with next empty cell + 1
+                return backtrack(cellList, nextEmptyCell+1)
+            } else { // else reset cell value back to empty
+                cellList[nextEmptyCell].value = SudokuValue.EMPTY
             }
         }
         return false
