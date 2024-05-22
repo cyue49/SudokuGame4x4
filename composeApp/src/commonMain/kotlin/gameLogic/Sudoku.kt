@@ -33,10 +33,10 @@ data class Sudoku (
      * @param n the number n for the n-th row of the sudoku grid
      * @return a list of the cells of the n-th row
      */
-    fun getRow(n: Int): List<Cell>{
+    fun getRow(n: Int, grid: List<Cell> = sudokuGrid): List<Cell>{
         val li = mutableListOf<Cell>()
         for (i in 0..3){
-            li.add(sudokuGrid[(n*4)+i])
+            li.add(grid[(n*4)+i])
         }
         return li
     }
@@ -45,10 +45,10 @@ data class Sudoku (
      * @param n the number n for the n-th column of the sudoku grid
      * @return a list of the cells of the n-th column
      */
-    fun getCol(n: Int): List<Cell>{
+    fun getCol(n: Int,grid: List<Cell> = sudokuGrid): List<Cell>{
         val li = mutableListOf<Cell>()
         for (i in 0..3){
-            li.add(sudokuGrid[(i*4)+n])
+            li.add(grid[(i*4)+n])
         }
         return li
     }
@@ -57,24 +57,24 @@ data class Sudoku (
      * @param n the number n for the n-th sub-grid of the sudoku grid
      * @return a list of the cells of the n-th sub-grid
      */
-    fun getSubGrid(n: Int): List<Cell>{
+    fun getSubGrid(n: Int, grid: List<Cell> = sudokuGrid): List<Cell>{
         val li = mutableListOf<Cell>()
         when(n) {
             0 -> {
-                li.addAll(getRow(0).slice(0..1))
-                li.addAll(getRow(1).slice(0..1))
+                li.addAll(getRow(0, grid).slice(0..1))
+                li.addAll(getRow(1, grid).slice(0..1))
             }
             1 -> {
-                li.addAll(getRow(0).slice(2..3))
-                li.addAll(getRow(1).slice(2..3))
+                li.addAll(getRow(0, grid).slice(2..3))
+                li.addAll(getRow(1, grid).slice(2..3))
             }
             2 -> {
-                li.addAll(getRow(2).slice(0..1))
-                li.addAll(getRow(3).slice(0..1))
+                li.addAll(getRow(2, grid).slice(0..1))
+                li.addAll(getRow(3, grid).slice(0..1))
             }
             3 -> {
-                li.addAll(getRow(2).slice(2..3))
-                li.addAll(getRow(3).slice(2..3))
+                li.addAll(getRow(2, grid).slice(2..3))
+                li.addAll(getRow(3, grid).slice(2..3))
             }
         }
         return li
@@ -154,7 +154,8 @@ data class Sudoku (
     }
 
     private fun getNewGameGrid(): List<Cell> {
-        val li: MutableList<Cell> = getRandomValidGrid()
+        val li: MutableList<Cell> = MutableList<Cell>(16) { Cell(SudokuValue.EMPTY) }
+        backtrack(li, 0)
         /*
         * ==> PART 1: Generate a random valid filled board
         * 1. while board is not filled
@@ -179,20 +180,21 @@ data class Sudoku (
         return li
     }
 
-    /**
-     * Generate a random completed and valid 4x4 sudoku grid
-     * @return A list of cells representing a completed and valid 4x4 sudoku grid
-     */
-    private fun getRandomValidGrid(): MutableList<Cell> {
-        val li: MutableList<Cell> = MutableList<Cell>(16) { Cell(SudokuValue.EMPTY) } // list to be returned
-        //while (!validateGrid()){ // while not a complete valid grid
-            for (i in 0..15){ // for each cell
-                val value = (1..4).random() // get a random value from 1 to 4
-                li[i] = Cell(SudokuValue.entries[value])
+    // backtracking algorithm
+    fun backtrack(cellList: MutableList<Cell>, firstEmpty: Int): Boolean{
+        if (firstEmpty == cellList.size) {
+            return  true
+        }
 
+        for (i in 1..4){
+            cellList[firstEmpty].value = SudokuValue.entries[i]
+            if (validateGrid(cellList,true)) {
+                return backtrack(cellList, firstEmpty+1)
+            } else {
+                cellList[firstEmpty].value = SudokuValue.EMPTY
             }
-        //}
-        return li
+        }
+        return false
     }
 
     /**
@@ -218,12 +220,12 @@ data class Sudoku (
      * Validates whether the current sudoku grid is valid. A valid board is fully filled and contains the numbers 1-4 on all rows, columns, and sub-grids exactly one time
      * @return Returns true if the grid is valid, and returns false otherwise
      */
-    fun validateGrid(ignoreEmpty: Boolean = false): Boolean {
+    fun validateGrid(grid: List<Cell> = sudokuGrid, ignoreEmpty: Boolean = false): Boolean {
         var valid = true
         for (i in 0..3){
-            val row = getRow(i)
-            val col = getCol(i)
-            val subGrid = getSubGrid(i)
+            val row = getRow(i, grid)
+            val col = getCol(i, grid)
+            val subGrid = getSubGrid(i, grid)
 
             if (!validateSection(row, ignoreEmpty) || !validateSection(col, ignoreEmpty) || !validateSection(subGrid, ignoreEmpty)) {
                 valid = false
