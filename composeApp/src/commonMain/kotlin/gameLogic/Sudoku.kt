@@ -182,7 +182,10 @@ data class Sudoku (
         for (i in randomValuesList){ // for each values 1 to 4
             cellList[nextEmptyCell].value = SudokuValue.entries[i] // try a value
             if (validateGrid(cellList,true)) { // if currently valid value, recursive call with next empty cell + 1
-                return backtrack(cellList, nextEmptyCell+1, randomValuesList)
+                if (backtrack(cellList, nextEmptyCell+1, randomValuesList.shuffled())){
+                    return true
+                }
+                cellList[nextEmptyCell].value = SudokuValue.EMPTY
             } else { // else reset cell value back to empty
                 cellList[nextEmptyCell].value = SudokuValue.EMPTY
             }
