@@ -54,4 +54,8 @@ class SudokuViewModel: ViewModel() {
             }
         }
     }
+
+    fun getNewGame(){
+        update(List<Cell>(16) { Cell(SudokuValue.EMPTY) })
+    }
 }
