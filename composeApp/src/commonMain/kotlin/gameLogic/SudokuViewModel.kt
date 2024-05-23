@@ -55,7 +55,26 @@ class SudokuViewModel: ViewModel() {
         }
     }
 
+    /**
+     * Reset the sudoku puzzle to a new one
+     */
     fun getNewGame(){
         update(List<Cell>(16) { Cell(SudokuValue.EMPTY) })
+    }
+
+    /**
+     * Validate whether the player's move respect the sudoku's rules
+     * @return true if the current state of the sudoku grid respect the sudoku's rules, false otherwise
+     */
+    fun validateMove(): Boolean {
+        return sudoku.validateGrid(ignoreEmpty = true)
+    }
+
+    /**
+     * Validate whether the current sudoku game is complete and valid
+     * @return true if the current sudoku game is complete and valid, false otherwise
+     */
+    fun validateGame(): Boolean {
+        return sudoku.validateGrid()
     }
 }
