@@ -21,6 +21,16 @@ class SudokuViewModel: ViewModel() {
     }
 
     /**
+     * Given a row and column, get the value of the cell at that position
+     * @param row the row number
+     * @param col the column number
+     * @return The value of the cell at the given row and column (null, 1, 2, 3, or 4)
+     */
+    fun getCellValueAt(row: Int, col: Int): Int? {
+        return sudoku.getCellAt(row, col).value.num
+    }
+
+    /**
      * Given a new value, update the currently selected cell with the new value
      * @param newVal the new value for the cell
      */
