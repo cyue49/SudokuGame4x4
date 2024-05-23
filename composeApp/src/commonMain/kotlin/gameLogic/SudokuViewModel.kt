@@ -6,7 +6,12 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 
 class SudokuViewModel: ViewModel() {
+    // The current Sudoku object
     var sudoku by mutableStateOf(Sudoku())
+
+    // The currently selected row and column
+    var selectedRow by mutableStateOf( -1 )
+    var selectedCol by mutableStateOf( -1 )
 
     // Update the sudoku object with a new list of cells representing the grid
     private fun update(cells: List<Cell>){
@@ -16,13 +21,14 @@ class SudokuViewModel: ViewModel() {
     }
 
     /**
-     * Given a row, a colum, and a new value, update the cell at that position with the new value
-     * @param row the number for the row of the sudoku grid
-     * @param col the number for the column of the sudoku grid
+     * Given a new value, update the currently selected cell with the new value
      * @param newVal the new value for the cell
      */
-    fun updateCell(row: Int, col: Int, newVal: Int){
-        val newCells = sudoku.updateCell(row, col, newVal)
-        update(newCells)
+    fun updateCell(newVal: Int){
+        if ((selectedRow in 0..3) && (selectedCol in 0..3)) {
+            if (!sudoku.getCellAt(selectedRow, selectedCol).isInputField) return // if not input field don't update
+            val newCells = sudoku.updateCell(selectedRow, selectedCol, newVal)
+            update(newCells)
+        }
     }
 }
