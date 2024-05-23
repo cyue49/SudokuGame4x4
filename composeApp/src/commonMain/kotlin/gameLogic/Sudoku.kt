@@ -147,7 +147,7 @@ data class Sudoku (
                 }
                 newList.add(newCell)
             } else {
-                newList.add(Cell(sudokuGrid[i].value))
+                newList.add(Cell(sudokuGrid[i].value, sudokuGrid[i].isInputField))
             }
         }
         return newList

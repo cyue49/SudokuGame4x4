@@ -31,4 +31,17 @@ class SudokuViewModel: ViewModel() {
             update(newCells)
         }
     }
+
+    /**
+     * Clear all user inputs for the sudoku grid
+     */
+    fun clearAllCells() {
+        for (i in 0..3){
+            for (j in 0..3){
+                selectedRow = i
+                selectedCol = j
+                if (sudoku.getCellAt(selectedRow, selectedCol).isInputField) updateCell(0)
+            }
+        }
+    }
 }
