@@ -53,6 +53,8 @@ class SudokuViewModel: ViewModel() {
                 if (sudoku.getCellAt(selectedRow, selectedCol).isInputField) updateCell(0)
             }
         }
+        selectedRow = -1
+        selectedCol = -1
     }
 
     /**
