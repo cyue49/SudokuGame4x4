@@ -96,7 +96,7 @@ class SudokuViewModel: ViewModel() {
             val timeTaken = Duration.between(sudoku.startTime, sudoku.completeTime).seconds
             val min = timeTaken/60
             val sec = timeTaken%60
-            return "$min min $sec sec"
+            return (if (min<10) "0" else "")  + min + ":" + (if (sec<10) "0" else "") + sec
         }
         return null
     }

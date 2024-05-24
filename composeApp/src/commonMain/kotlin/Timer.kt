@@ -12,13 +12,18 @@ import kotlin.time.Duration.Companion.seconds
 @Composable
 fun timer(viewModel: SudokuViewModel){
     var seconds by remember { mutableStateOf( 0 ) }
+
     LaunchedEffect(Unit) {
         while(true) {
             delay(1.seconds)
             seconds = viewModel.getTimeElapsed().toInt()
         }
     }
+
+    val min = seconds/60
+    val sec = seconds%60
+
     Text(
-        text = "${seconds/60} min ${seconds%60} sec"
+        text = (if (min<10) "0" else "")  + min + ":" + (if (sec<10) "0" else "") + sec
     )
 }
