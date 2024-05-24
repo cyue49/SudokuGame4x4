@@ -1,7 +1,6 @@
 package gameLogic
 
 import java.time.LocalDateTime
-import java.time.Duration
 
 /**
  * Enum class representing the five possible states of a 4x4 sudoku cell: EMPTY, ONE, TWO, THREE, or FOUR
@@ -361,16 +360,5 @@ data class Sudoku (
      */
     fun setCompleteTime() {
         completeTime = LocalDateTime.now()
-    }
-
-    /**
-     * Get the time in seconds taken to solve the sudoku game
-     * @return a long representing the number of seconds passed between startTime and completeTime, or null if not complete yet
-     */
-    fun getSolvingTimeSeconds(): Long? {
-        if ((startTime != null) && (completeTime != null)){
-            return Duration.between(startTime, completeTime).seconds
-        }
-        return null
     }
 }

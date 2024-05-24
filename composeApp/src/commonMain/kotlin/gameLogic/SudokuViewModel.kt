@@ -4,6 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import java.time.Duration
 
 class SudokuViewModel: ViewModel() {
     // The current Sudoku object
@@ -90,8 +91,8 @@ class SudokuViewModel: ViewModel() {
      * @return a string of the time taken to solve the sudoku if the start time and complete time have been set, or null otherwise
      */
     fun getSolvingTime(): String? {
-        val timeTaken = sudoku.getSolvingTimeSeconds()
-        if (timeTaken != null){
+        if ((sudoku.startTime != null) && (sudoku.completeTime != null)){
+            val timeTaken = Duration.between(sudoku.startTime, sudoku.completeTime).seconds
             val min = timeTaken/60
             val sec = timeTaken%60
             return "$min min $sec sec"
