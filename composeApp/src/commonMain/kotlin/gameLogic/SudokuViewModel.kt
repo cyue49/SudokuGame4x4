@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import java.time.Duration
+import java.time.LocalDateTime
 
 class SudokuViewModel: ViewModel() {
     // The current Sudoku object
@@ -98,5 +99,13 @@ class SudokuViewModel: ViewModel() {
             return "$min min $sec sec"
         }
         return null
+    }
+
+    /**
+     * Get the time elapsed in seconds since the start of the game
+     * @return a long of the time elapsed in seconds since the start of the game
+     */
+    fun getTimeElapsed(): Long {
+        return Duration.between(sudoku.startTime, LocalDateTime.now()).seconds
     }
 }
