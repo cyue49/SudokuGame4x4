@@ -85,6 +85,10 @@ class SudokuViewModel: ViewModel() {
         return sudoku.validateGrid()
     }
 
+    /**
+     * Get a string of the time taken to solve the sudoku game
+     * @return a string of the time taken to solve the sudoku if the start time and complete time have been set, or null otherwise
+     */
     fun getSolvingTime(): String? {
         val timeTaken = sudoku.getSolvingTimeSeconds()
         if (timeTaken != null){
