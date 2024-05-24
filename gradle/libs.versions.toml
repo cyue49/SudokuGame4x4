@@ -17,6 +17,7 @@ junit = "4.13.2"
 kotlin = "1.9.23"
 material3Android = "1.2.1"
 
+
 [libraries]
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilSvg" }
 coil-svg = { module = "io.coil-kt:coil-svg", version.ref = "coilSvg" }

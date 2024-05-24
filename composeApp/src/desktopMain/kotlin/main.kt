@@ -1,7 +1,9 @@
+
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import cafe.adriel.voyager.navigator.Navigator
 
 fun main() = application {
     Window(
@@ -10,10 +12,7 @@ fun main() = application {
     ) {
         MaterialTheme {
             Surface {
-                HomeScreen { name ->
-                    // handle the navigation
-                    println("Play button clicked with name: $name")
-                }
+                Navigator(screen = HomeScreen)
             }
         }
     }
