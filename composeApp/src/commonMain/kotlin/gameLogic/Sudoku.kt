@@ -1,5 +1,8 @@
 package gameLogic
 
+import java.time.LocalDateTime
+import java.time.Duration
+
 /**
  * Enum class representing the five possible states of a 4x4 sudoku cell: EMPTY, ONE, TWO, THREE, or FOUR
  */
@@ -31,12 +34,18 @@ class Counter (var count: Int = 0)
 data class Sudoku (
     private var sudokuGrid: List<Cell> = List<Cell>(16) {
         Cell(SudokuValue.EMPTY)
-    }
+    },
+    var startTime: LocalDateTime? = null,
+    var completeTime: LocalDateTime? = null
 ) {
     init {
         // initialize sudoku game with a random grid if the sudoku grid is empty
         if (sudokuGridIsEmpty()) {
             sudokuGrid = getNewGameGrid()
+
+            // set start and complete time for new sudoku game
+            startTime = LocalDateTime.now()
+            completeTime = null
         }
     }
 
@@ -345,5 +354,23 @@ data class Sudoku (
         }
 
         return valid
+    }
+
+    /**
+     * Set the current time as the completion time of the sudoku
+     */
+    fun setCompleteTime() {
+        completeTime = LocalDateTime.now()
+    }
+
+    /**
+     * Get the time in seconds taken to solve the sudoku game
+     * @return a long representing the number of seconds passed between startTime and completeTime, or null if not complete yet
+     */
+    fun getSolvingTimeSeconds(): Long? {
+        if ((startTime != null) && (completeTime != null)){
+            return Duration.between(startTime, completeTime).seconds
+        }
+        return null
     }
 }

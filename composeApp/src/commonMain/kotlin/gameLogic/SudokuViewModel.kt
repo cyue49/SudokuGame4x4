@@ -16,7 +16,9 @@ class SudokuViewModel: ViewModel() {
     // Update the sudoku object with a new list of cells representing the grid
     private fun update(cells: List<Cell>){
         sudoku = sudoku.copy(
-            sudokuGrid = cells
+            sudokuGrid = cells,
+            startTime = sudoku.startTime,
+            completeTime = sudoku.completeTime
         )
     }
 
@@ -40,6 +42,9 @@ class SudokuViewModel: ViewModel() {
             val newCells = sudoku.updateCell(selectedRow, selectedCol, newVal)
             update(newCells)
         }
+
+        // set complete time if sudoku grid valid and complete
+        if (sudoku.validateGrid()) sudoku.setCompleteTime()
     }
 
     /**
@@ -78,5 +83,15 @@ class SudokuViewModel: ViewModel() {
      */
     fun validateGame(): Boolean {
         return sudoku.validateGrid()
+    }
+
+    fun getSolvingTime(): String? {
+        val timeTaken = sudoku.getSolvingTimeSeconds()
+        if (timeTaken != null){
+            val min = timeTaken/60
+            val sec = timeTaken%60
+            return "$min min $sec sec"
+        }
+        return null
     }
 }
