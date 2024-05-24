@@ -1,6 +1,7 @@
 package org.example.sudokugame4x4
 
 import App
+import HomeScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -12,7 +13,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            App()
+                HomeScreen { name ->
+                    // handle navigation
+                    println("Play button clicked with name: $name")
+                }
         }
     }
 }
@@ -20,5 +24,7 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun AppAndroidPreview() {
-    App()
+    HomeScreen { name ->
+        println("Play button clicked with name: $name")
+    }
 }
