@@ -1,5 +1,7 @@
 package org.example.sudokugame4x4
 
+import CompletionScreen
+import HomeScreen
 import SudokuGrid
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -23,6 +25,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import gameLogic.SudokuViewModel
 import kotlinx.coroutines.delay
 
@@ -36,12 +40,36 @@ data class GameBoardScreen(
         val min = timer/60
         val sec = timer%60
         var selectedNumber by remember { mutableStateOf<Int?>(null) }
+        val navigator = LocalNavigator.currentOrThrow
+
+        var navigateToCompletion by remember { mutableStateOf(false) }
+        var completionTime by remember { mutableStateOf("") }
 
         LaunchedEffect(Unit) {
             while (true) {
                 delay(1000L)
                 timer = viewModel.getTimeElapsed().toInt()
             }
+        }
+        // Observe if Sudoku is complete
+        LaunchedEffect(viewModel.isSudokuComplete) {
+            if (viewModel.isSudokuComplete) {
+                completionTime = viewModel.getSolvingTime() ?: "00:00"
+                navigateToCompletion = true
+            }
+        }
+
+        if (navigateToCompletion) {
+            navigator.push(CompletionScreen(
+                time = completionTime,
+                onNewGame = {
+                    navigator.popUntil { it is HomeScreen }
+                    navigator.push(GameBoardScreen(username = username))
+                },
+                onHome = {
+                    navigator.popUntil { it is HomeScreen }
+                }
+            ))
         }
 
         Column(
@@ -115,7 +143,7 @@ data class GameBoardScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             // Utility buttons
-            
+
         }
     }
 }
