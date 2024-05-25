@@ -15,6 +15,10 @@ class SudokuViewModel: ViewModel() {
     var selectedRow by mutableStateOf( -1 )
     var selectedCol by mutableStateOf( -1 )
 
+    // Flag to indicate if the Sudoku is complete
+    var isSudokuComplete by mutableStateOf(false)
+        private set
+
     // Update the sudoku object with a new list of cells representing the grid
     private fun update(cells: List<Cell>){
         sudoku = sudoku.copy(
@@ -22,6 +26,11 @@ class SudokuViewModel: ViewModel() {
             startTime = sudoku.startTime,
             completeTime = sudoku.completeTime
         )
+// Check if the Sudoku is complete and correct
+        if (validateGame()) {
+            isSudokuComplete = true
+            sudoku.setCompleteTime()
+        }
     }
 
     /**

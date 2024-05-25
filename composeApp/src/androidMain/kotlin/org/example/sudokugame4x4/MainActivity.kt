@@ -8,8 +8,11 @@ import cafe.adriel.voyager.navigator.Navigator
 import android.animation.ObjectAnimator
 import android.view.View
 import android.view.animation.OvershootInterpolator
+import androidx.compose.runtime.Composable
 import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.compose.ui.tooling.preview.Preview
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,4 +38,10 @@ class MainActivity : ComponentActivity() {
             Navigator(screen = HomeScreen)
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MainActivityPreview() {
+    Navigator(screen = HomeScreen)
 }
