@@ -17,6 +17,8 @@ junit = "4.13.2"
 kotlin = "1.9.23"
 lifecycleViewmodel = "2.8.0"
 material3Android = "1.2.1"
+composePreviewRenderer = "0.0.1-alpha01"
+coreSplashscreen = "1.0.1"
 
 [libraries]
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilSvg" }
@@ -37,6 +39,7 @@ compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview"
 androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "lifecycleViewmodel" }
 
 androidx-material3-android = { group = "androidx.compose.material3", name = "material3-android", version.ref = "material3Android" }
+androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "coreSplashscreen" }
 
 
 [plugins]

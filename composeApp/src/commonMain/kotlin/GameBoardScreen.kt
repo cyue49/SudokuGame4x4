@@ -28,7 +28,7 @@ import kotlinx.coroutines.delay
 
 data class GameBoardScreen(
     val username: String ,
-    val viewModel: SudokuViewModel
+    val viewModel: SudokuViewModel = SudokuViewModel()
 ) : Screen {
     @Composable
     override fun Content() {

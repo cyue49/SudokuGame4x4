@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 288 288">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #59d5e0;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4 {
+        stroke: #000;
+      }
+
+      .cls-2 {
+        fill: #faa300;
+      }
+
+      .cls-3 {
+        fill: #f4538a;
+      }
+
+      .cls-5, .cls-6 {
+        isolation: isolate;
+      }
+
+      .cls-4 {
+        fill: #f5dd61;
+      }
+
+      .cls-6 {
+        fill: #fff;
+        font-family: ArialMT, Arial;
+        font-size: 13.7px;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M86.7,84h14.8c3.7,0,6.7,3,6.7,6.7v20.8c0,3.7-3,6.7-6.7,6.7h-20.8c-3.7,0-6.7-3-6.7-6.7v-15c0-6.9,5.6-12.6,12.6-12.6Z"/>
+  <path class="cls-1" d="M114.9,84h20.6c3.7,0,6.7,3,6.7,6.8v20.7c0,3.7-3,6.8-6.7,6.8h-20.6c-3.7,0-6.7-3-6.7-6.8v-20.7c0-3.7,3-6.8,6.7-6.8Z"/>
+  <g class="cls-5">
+    <g class="cls-5">
+      <g class="cls-5">
+        <text class="cls-6" transform="translate(121.4 108)"><tspan x="0" y="0">4</tspan></text>
+      </g>
+    </g>
+  </g>
+  <rect class="cls-2" x="142.2" y="84" width="34.1" height="34.2" rx="5.9" ry="5.9"/>
+  <rect class="cls-2" x="176.3" y="84" width="34.1" height="34.2" rx="5.9" ry="5.9"/>
+  <path class="cls-1" d="M80.9,118.3h20.4c3.8,0,6.8,3.1,6.8,6.9v20.5c0,3.8-3.1,6.9-6.8,6.9h-20.4c-3.8,0-6.8-3.1-6.8-6.9v-20.5c0-3.8,3.1-6.9,6.8-6.9Z"/>
+  <path class="cls-1" d="M115,118.3h20.5c3.8,0,6.8,3.1,6.8,6.8v20.6c0,3.8-3.1,6.9-6.8,6.9h-20.4c-3.8,0-6.8-3.1-6.8-6.9v-20.6c0-3.8,3.1-6.8,6.8-6.8Z"/>
+  <rect class="cls-2" x="142.2" y="118.3" width="34.1" height="34.2" rx="5.9" ry="5.9"/>
+  <rect class="cls-2" x="176.3" y="118.3" width="34.1" height="34.2" rx="5.9" ry="5.9"/>
+  <g class="cls-5">
+    <text class="cls-6" transform="translate(189.6 142.2)"><tspan x="0" y="0">4</tspan></text>
+  </g>
+  <rect class="cls-4" x="74.1" y="152.5" width="34.1" height="34.2" rx="5.9" ry="5.9"/>
+  <rect class="cls-4" x="108.2" y="152.5" width="34.1" height="34.2" rx="5.9" ry="5.9"/>
+  <rect class="cls-3" x="142.2" y="152.5" width="34.1" height="34.2" rx="5.9" ry="5.9"/>
+  <g class="cls-5">
+    <text class="cls-6" transform="translate(155.5 176.5)"><tspan x="0" y="0">2</tspan></text>
+  </g>
+  <rect class="cls-4" x="74.1" y="186.8" width="34.1" height="34.2" rx="5.9" ry="5.9"/>
+  <g class="cls-5">
+    <text class="cls-6" transform="translate(87.4 210.7) scale(1.2 1)"><tspan x="0" y="0">2</tspan></text>
+  </g>
+  <rect class="cls-4" x="108.2" y="186.8" width="34.1" height="34.2" rx="5.9" ry="5.9"/>
+  <g class="cls-5">
+    <text class="cls-6" transform="translate(121.4 210.7)"><tspan x="0" y="0">3</tspan></text>
+  </g>
+  <rect class="cls-3" x="142.2" y="186.8" width="34.1" height="34.2" rx="5.9" ry="5.9"/>
+  <rect class="cls-3" x="176.3" y="152.5" width="34.1" height="34.2" rx="5.9" ry="5.9"/>
+  <g class="cls-5">
+    <text class="cls-6" transform="translate(189.6 176.5)"><tspan x="0" y="0">3</tspan></text>
+  </g>
+  <rect class="cls-3" x="176.3" y="186.8" width="34.1" height="34.2" rx="5.9" ry="5.9"/>
+  <image width="64" height="64" transform="translate(78.4 157.2) scale(.4)" xlink:href="../Downloads/icons8-cartoon-64.png"/>
+  <image width="48" height="48" transform="translate(147.3 89.6) scale(.5 .5)" xlink:href="../Downloads/icons8-scooby-doo-color/icons8-scooby-doo-48.png"/>
+</svg>
