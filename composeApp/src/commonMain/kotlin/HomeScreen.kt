@@ -31,7 +31,6 @@ object HomeScreen : Screen {
         val navigator = LocalNavigator.currentOrThrow
         val name = remember { mutableStateOf("") }
         var showRules by remember { mutableStateOf(false) }
-        val viewModel: SudokuViewModel = SudokuViewModel()
 
         Column(
             modifier = Modifier
@@ -68,7 +67,7 @@ object HomeScreen : Screen {
             Spacer(modifier = Modifier.height(32.dp))
 
             Button(
-                onClick = { navigator.push(GameBoardScreen(name.value, viewModel)) },
+                onClick = { navigator.push(GameBoardScreen(name.value)) },
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF2878FF)),
                 shape = RoundedCornerShape(8.dp),
                 modifier = Modifier
