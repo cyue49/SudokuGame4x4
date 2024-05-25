@@ -11,9 +11,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import gameLogic.SudokuViewModel
 
 @Composable
-fun SudokuGrid(selectedNumber: Int?) {
+fun SudokuGrid(
+    selectedNumber: Int?,
+    viewModel: SudokuViewModel
+) {
     var grid by remember { mutableStateOf(List(4) { MutableList(4) { "" } }) }
     var selectedCell by remember { mutableStateOf<Pair<Int, Int>?>(null) }
     val cellBackgroundColor = Color.White
@@ -42,13 +46,15 @@ fun SudokuGrid(selectedNumber: Int?) {
                                 .background(if (selectedCell == Pair(row, col)) selectedCellColor else cellBackgroundColor)
                                 .clickable {
                                     selectedCell = Pair(row, col)
+                                    viewModel.selectedRow = row
+                                    viewModel.selectedCol = col
                                 }
                         ) {
                             Text(
-                                text = grid[row][col],
+                                text = if ( viewModel.getCellValueAt(row, col) == null) "" else viewModel.getCellValueAt(row, col).toString(),
                                 fontSize = 24.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = cellTextColor,
+                                color = (if (viewModel.checkCellIsInput(row, col)) cellTextColor else Color.Blue),
                                 modifier = Modifier.align(Alignment.Center)
                             )
                         }
