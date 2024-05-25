@@ -3,8 +3,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import gameLogic.SudokuViewModel
-import gameLogic.TestApp
+//import gameLogic.SudokuViewModel
+//import gameLogic.TestApp
 import cafe.adriel.voyager.navigator.Navigator
 
 fun main() = application {
