@@ -22,6 +22,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import gameLogic.SudokuViewModel
 import org.example.sudokugame4x4.GameBoardScreen
 
 object HomeScreen : Screen {
@@ -30,6 +31,7 @@ object HomeScreen : Screen {
         val navigator = LocalNavigator.currentOrThrow
         val name = remember { mutableStateOf("") }
         var showRules by remember { mutableStateOf(false) }
+        val viewModel: SudokuViewModel = SudokuViewModel()
 
         Column(
             modifier = Modifier
@@ -66,7 +68,7 @@ object HomeScreen : Screen {
             Spacer(modifier = Modifier.height(32.dp))
 
             Button(
-                onClick = { navigator.push(GameBoardScreen(name.value)) },
+                onClick = { navigator.push(GameBoardScreen(name.value, viewModel)) },
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF2878FF)),
                 shape = RoundedCornerShape(8.dp),
                 modifier = Modifier
