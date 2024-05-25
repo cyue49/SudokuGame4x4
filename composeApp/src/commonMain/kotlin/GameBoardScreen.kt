@@ -23,9 +23,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
+import gameLogic.SudokuViewModel
 import kotlinx.coroutines.delay
 
-data class GameBoardScreen(val username: String) : Screen {
+data class GameBoardScreen(
+    val username: String ,
+    val viewModel: SudokuViewModel
+) : Screen {
     @Composable
     override fun Content() {
         var timer by remember { mutableStateOf(0) }
@@ -67,7 +71,7 @@ data class GameBoardScreen(val username: String) : Screen {
             Spacer(modifier = Modifier.height(40.dp))
 
             // 4x4 Sudoku board
-            SudokuGrid(selectedNumber)
+            SudokuGrid(selectedNumber, viewModel)
 
             Spacer(modifier = Modifier.height(40.dp))
 
@@ -93,6 +97,7 @@ data class GameBoardScreen(val username: String) : Screen {
                             .border(2.dp, Color.Black, CircleShape)
                             .clickable {
                                 selectedNumber = i
+                                viewModel.updateCell(i)
                                        },
                         contentAlignment = Alignment.Center
                     ) {
