@@ -35,6 +35,14 @@ class SudokuViewModel: ViewModel() {
     }
 
     /**
+     * Check whether the cell at a position is an input cell or not
+     * @return true if the cell is and input cell, false otherwise
+     */
+    fun checkCellIsInput(row: Int, col: Int): Boolean {
+        return sudoku.getCellAt(row,col).isInputField
+    }
+
+    /**
      * Given a new value, update the currently selected cell with the new value
      * @param newVal the new value for the cell
      */

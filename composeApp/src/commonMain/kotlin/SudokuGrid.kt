@@ -54,7 +54,7 @@ fun SudokuGrid(
                                 text = if ( viewModel.getCellValueAt(row, col) == null) "" else viewModel.getCellValueAt(row, col).toString(),
                                 fontSize = 24.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = cellTextColor,
+                                color = (if (viewModel.checkCellIsInput(row, col)) cellTextColor else Color.Blue),
                                 modifier = Modifier.align(Alignment.Center)
                             )
                         }
