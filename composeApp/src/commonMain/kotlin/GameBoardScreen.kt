@@ -33,12 +33,14 @@ data class GameBoardScreen(
     @Composable
     override fun Content() {
         var timer by remember { mutableStateOf(0) }
+        val min = timer/60
+        val sec = timer%60
         var selectedNumber by remember { mutableStateOf<Int?>(null) }
 
         LaunchedEffect(Unit) {
             while (true) {
                 delay(1000L)
-                timer++
+                timer = viewModel.getTimeElapsed().toInt()
             }
         }
 
@@ -61,7 +63,7 @@ data class GameBoardScreen(
                     color = Color(0xFF2878FF)
                 )
                 Text(
-                    text = "Time: ${timer / 60} mins",
+                    text = "Time: " + (if (min<10) "0" else "")  + min + ":" + (if (sec<10) "0" else "") + sec,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFF2878FF)
