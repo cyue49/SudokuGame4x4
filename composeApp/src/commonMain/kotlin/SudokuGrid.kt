@@ -15,23 +15,13 @@ import gameLogic.SudokuViewModel
 
 @Composable
 fun SudokuGrid(
-    selectedNumber: Int?,
     viewModel: SudokuViewModel
 ) {
-    var grid by remember { mutableStateOf(List(4) { MutableList(4) { "" } }) }
     var selectedCell by remember { mutableStateOf<Pair<Int, Int>?>(null) }
     val cellBackgroundColor = Color.White
     val selectedCellColor = Color(0xFFFFF176)
     val cellBorderColor = Color.Black
     val cellTextColor = Color.Black
-
-    LaunchedEffect(selectedNumber) {
-        selectedCell?.let { (row, col) ->
-            if (selectedNumber != null && selectedNumber in 1..4) {
-                grid[row][col] = selectedNumber.toString()
-            }
-        }
-    }
 
     Box(
     ) {

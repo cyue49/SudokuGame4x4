@@ -29,6 +29,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import gameLogic.SudokuViewModel
 import kotlinx.coroutines.delay
+import timer
 
 data class GameBoardScreen(
     val username: String ,
@@ -36,21 +37,11 @@ data class GameBoardScreen(
 ) : Screen {
     @Composable
     override fun Content() {
-        var timer by remember { mutableStateOf(0) }
-        val min = timer/60
-        val sec = timer%60
-        var selectedNumber by remember { mutableStateOf<Int?>(null) }
         val navigator = LocalNavigator.currentOrThrow
 
         var navigateToCompletion by remember { mutableStateOf(false) }
         var completionTime by remember { mutableStateOf("") }
 
-        LaunchedEffect(Unit) {
-            while (true) {
-                delay(1000L)
-                timer = viewModel.getTimeElapsed().toInt()
-            }
-        }
         // Observe if Sudoku is complete
         LaunchedEffect(viewModel.isSudokuComplete) {
             if (viewModel.isSudokuComplete) {
@@ -91,18 +82,13 @@ data class GameBoardScreen(
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFF2878FF)
                 )
-                Text(
-                    text = "Time: " + (if (min<10) "0" else "")  + min + ":" + (if (sec<10) "0" else "") + sec,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color(0xFF2878FF)
-                )
+                timer(viewModel)
             }
 
             Spacer(modifier = Modifier.height(40.dp))
 
             // 4x4 Sudoku board
-            SudokuGrid(selectedNumber, viewModel)
+            SudokuGrid(viewModel)
 
             Spacer(modifier = Modifier.height(40.dp))
 
@@ -127,7 +113,6 @@ data class GameBoardScreen(
                             )
                             .border(2.dp, Color.Black, CircleShape)
                             .clickable {
-                                selectedNumber = i
                                 viewModel.updateCell(i)
                                        },
                         contentAlignment = Alignment.Center

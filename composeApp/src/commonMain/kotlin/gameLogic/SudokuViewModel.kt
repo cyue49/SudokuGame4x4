@@ -26,7 +26,7 @@ class SudokuViewModel: ViewModel() {
             startTime = sudoku.startTime,
             completeTime = sudoku.completeTime
         )
-// Check if the Sudoku is complete and correct
+        // Check if the Sudoku is complete and correct
         if (validateGame()) {
             isSudokuComplete = true
             sudoku.setCompleteTime()
@@ -61,9 +61,6 @@ class SudokuViewModel: ViewModel() {
             val newCells = sudoku.updateCell(selectedRow, selectedCol, newVal)
             update(newCells)
         }
-
-        // set complete time if sudoku grid valid and complete
-        if (sudoku.validateGrid()) sudoku.setCompleteTime()
     }
 
     /**
