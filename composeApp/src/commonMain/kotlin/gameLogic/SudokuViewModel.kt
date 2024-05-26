@@ -67,6 +67,8 @@ class SudokuViewModel: ViewModel() {
      * Clear all user inputs for the sudoku grid
      */
     fun clearAllCells() {
+        val currentRow = selectedRow
+        val currentCol = selectedCol
         for (i in 0..3){
             for (j in 0..3){
                 selectedRow = i
@@ -74,8 +76,8 @@ class SudokuViewModel: ViewModel() {
                 if (sudoku.getCellAt(selectedRow, selectedCol).isInputField) updateCell(0)
             }
         }
-        selectedRow = -1
-        selectedCol = -1
+        selectedRow = currentRow
+        selectedCol = currentCol
     }
 
     /**

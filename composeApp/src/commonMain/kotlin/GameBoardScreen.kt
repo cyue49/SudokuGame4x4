@@ -81,6 +81,14 @@ data class GameBoardScreen(
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFF2878FF)
                 )
+                if(!viewModel.validateMove()){
+                    Text(
+                        text = "Check your moves!",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Red
+                    )
+                }
                 timer(viewModel)
             }
 
