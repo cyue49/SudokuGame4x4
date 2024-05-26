@@ -32,6 +32,7 @@ object HomeScreen : Screen {
         val name = remember { mutableStateOf("") }
         var showRules by remember { mutableStateOf(false) }
 
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -67,8 +68,18 @@ object HomeScreen : Screen {
             Spacer(modifier = Modifier.height(32.dp))
 
             Button(
-                onClick = { navigator.push(GameBoardScreen(name.value)) },
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF2878FF)),
+                onClick = {
+                    if (name.value.isNotEmpty()) {
+                        navigator.push(GameBoardScreen(name.value))
+                    }
+                },
+                enabled = name.value.isNotEmpty(),
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = if (name.value.isNotEmpty()) Color(0xFF2878FF) else Color(0xFFB0BEC5),
+                    disabledBackgroundColor = Color(0xFFB0BEC5),
+                    contentColor = Color.White,
+                    disabledContentColor = Color.White
+                ),
                 shape = RoundedCornerShape(8.dp),
                 modifier = Modifier
                     .height(50.dp)
