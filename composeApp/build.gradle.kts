@@ -41,6 +41,8 @@ kotlin {
             implementation("cafe.adriel.voyager:voyager-navigator:$voyagerVersion")
             implementation("cafe.adriel.voyager:voyager-tab-navigator:$voyagerVersion")
             implementation("cafe.adriel.voyager:voyager-transitions:$voyagerVersion")
+
+            implementation("androidx.compose.material:material-icons-extended:1.0.0")
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)

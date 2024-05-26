@@ -3,24 +3,24 @@ package org.example.sudokugame4x4
 import CompletionScreen
 import HomeScreen
 import SudokuGrid
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.key.Key.Companion.R
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -28,7 +28,6 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import gameLogic.SudokuViewModel
-import kotlinx.coroutines.delay
 import timer
 
 data class GameBoardScreen(
@@ -126,10 +125,41 @@ data class GameBoardScreen(
                     }
                 }
             }
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(50.dp))
 
             // Utility buttons
-
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                IconButtonWithIcon(
+                    imageVector = Icons.Filled.Clear,
+                    contentDescription = "Clear",
+                    onClick = { viewModel.updateCell(0) }
+                )
+                IconButtonWithIcon(
+                    imageVector = Icons.Filled.Delete,
+                    contentDescription = "Delete",
+                    onClick = { viewModel.clearAllCells() }
+                )
+                IconButtonWithIcon(
+                    imageVector = Icons.Filled.Refresh,
+                    contentDescription = "Refresh",
+                    onClick = { viewModel.getNewGame() }
+                )
+                IconButtonWithIcon(
+                    imageVector = Icons.Filled.Home,
+                    contentDescription = "Erase",
+                    onClick = { navigator.popUntil { it is HomeScreen } }
+                )
+            }
         }
+    }
+}
+
+@Composable
+fun IconButtonWithIcon(imageVector: ImageVector, contentDescription: String?, onClick: () -> Unit) {
+    IconButton(onClick = onClick) {
+        Icon(imageVector, contentDescription, modifier = Modifier.size(24.dp))
     }
 }
