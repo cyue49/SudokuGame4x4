@@ -52,6 +52,7 @@ data class GameBoardScreen(
 
         if (navigateToCompletion) {
             navigator.push(CompletionScreen(
+                username = username,
                 time = completionTime,
                 onNewGame = {
                     navigator.popUntil { it is HomeScreen }
@@ -66,7 +67,7 @@ data class GameBoardScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color(0xFFFFD700))  // Yellow background
+                .background(Color(0xFFFFD700))
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
