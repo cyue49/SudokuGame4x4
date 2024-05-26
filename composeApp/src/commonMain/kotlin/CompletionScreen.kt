@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 
 data class CompletionScreen(
+    val username: String,
     val time: String,
     val onNewGame: () -> Unit,
     val onHome: () -> Unit
@@ -29,7 +30,7 @@ data class CompletionScreen(
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "Excellent!",
+                text = "Excellent, $username!",
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color(0xFF2878FF)
