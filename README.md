@@ -29,10 +29,10 @@ The application mainly consists of the following three pages:
 ## Preview
 
 Mobile preview:
-<img src="docs/images/mobile-preview" alt="mobile preview">
+<img src="docs/images/mobile-preview.png" alt="mobile preview">
 
 Desktop preview:
-<img src="docs/images/desktop-preview" alt="desktop preview">
+<img src="docs/images/desktop-preview.png" alt="desktop preview">
 
 
 ## Technologies Used
